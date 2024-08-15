@@ -5,7 +5,7 @@ FROM openjdk:17-jdk-slim
 WORKDIR /app
 
 # Copy the executable jar file into the container
-COPY services/ui/build/libs/ui-service-0.0.1-SNAPSHOT.jar ui-service.jar
+COPY services/ui/build/libs/ui-0.0.1-SNAPSHOT.jar ui-service.jar
 
 # Expose the port the service will run on
 EXPOSE 8081

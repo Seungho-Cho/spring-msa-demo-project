@@ -33,14 +33,14 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
+      - name: Run tests for Inventory Service
+        run: ./gradlew :services:inventory-service:test
+
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
       - name: Build Inventory Service
         run: ./gradlew :services:inventory-service:build
-
-      - name: Run tests for Inventory Service
-        run: ./gradlew :services:inventory-service:test
 
       - name: Package Docker image for Inventory Service
         run: docker build -t inventory-service:latest -f services/inventory-service/Dockerfile .
@@ -48,22 +48,22 @@ jobs:
       - name: Push Docker image to EC2
         uses: appleboy/scp-action@v0.1.4
         with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USER }}
-          key: ${{ secrets.EC2_SSH_KEY }}
+          host: 15.164.104.244
+          username: minikube
+          password: springdemo1234
           source: "inventory-service:latest"
-          target: "/home/${{ secrets.EC2_USER }}/inventory-service:latest"
+          target: "/home/minikube/inventory-service:latest"
 
       - name: Deploy Inventory Service on EC2 Minikube
         uses: appleboy/ssh-action@v0.1.6
         with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USER }}
-          key: ${{ secrets.EC2_SSH_KEY }}
+          host: 15.164.104.244
+          username: minikube
+          password: springdemo1234
           script: |
-            docker load -i /home/${{ secrets.EC2_USER }}/inventory-service:latest
+            docker load -i /home/minikube/inventory-service:latest
             minikube image load inventory-service:latest --profile=minikube
-            kubectl apply -f /home/${{ secrets.EC2_USER }}/services/inventory-service/inventory-deployment.yaml
+            kubectl apply -f /home/minikube/services/inventory-service/inventory-deployment.yaml
 
   build-and-test-ui-service:
     name: Build and Test UI Service
@@ -88,28 +88,25 @@ jobs:
       - name: Build UI Service
         run: ./gradlew :services:ui:build
 
-      - name: Run tests for UI Service
-        run: ./gradlew :services:ui:test
-
       - name: Package Docker image for UI Service
         run: docker build -t ui-service:latest -f services/ui/Dockerfile .
 
       - name: Push Docker image to EC2
-        uses: appleboy/scp-action@v0.1.4
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USER }}
-          key: ${{ secrets.EC2_SSH_KEY }}
-          source: "ui-service:latest"
-          target: "/home/${{ secrets.EC2_USER }}/ui-service:latest"
+          uses: appleboy/scp-action@v0.1.4
+          with:
+            host: 15.164.104.244
+            username: minikube
+            password: springdemo1234
+            source: "ui-service:latest"
+            target: "/home/minikube/ui-service:latest"
 
-      - name: Deploy UI Service on EC2 Minikube
-        uses: appleboy/ssh-action@v0.1.6
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USER }}
-          key: ${{ secrets.EC2_SSH_KEY }}
-          script: |
-            docker load -i /home/${{ secrets.EC2_USER }}/ui-service:latest
-            minikube image load ui-service:latest --profile=minikube
-            kubectl apply -f /home/${{ secrets.EC2_USER }}/services/ui/ui-deployment.yaml
+            - name: Deploy UI Service on EC2 Minikube
+              uses: appleboy/ssh-action@v0.1.6
+              with:
+                host: 15.164.104.244
+                username: minikube
+                password: springdemo1234
+                script: |
+                  docker load -i /home/minikube/ui-service:latest
+                  minikube image load ui-service:latest --profile=minikube
+                  kubectl apply -f /home/minikube/services/ui/ui-deployment.yaml
