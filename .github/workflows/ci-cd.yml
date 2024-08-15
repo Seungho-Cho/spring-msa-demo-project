@@ -92,13 +92,13 @@ jobs:
         run: docker build -t ui-service:latest -f services/ui/Dockerfile .
 
       - name: Push Docker image to EC2
-          uses: appleboy/scp-action@v0.1.4
-          with:
-            host: 15.164.104.244
-            username: minikube
-            password: springdemo1234
-            source: "ui-service:latest"
-            target: "/home/minikube/ui-service:latest"
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: 15.164.104.244
+          username: minikube
+          password: springdemo1234
+          source: "ui-service:latest"
+          target: "/home/minikube/ui-service:latest"
 
       - name: Deploy UI Service on EC2 Minikube
         uses: appleboy/ssh-action@v0.1.6
