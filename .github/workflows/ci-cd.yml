@@ -100,13 +100,13 @@ jobs:
             source: "ui-service:latest"
             target: "/home/minikube/ui-service:latest"
 
-            - name: Deploy UI Service on EC2 Minikube
-              uses: appleboy/ssh-action@v0.1.6
-              with:
-                host: 15.164.104.244
-                username: minikube
-                password: springdemo1234
-                script: |
-                  docker load -i /home/minikube/ui-service:latest
-                  minikube image load ui-service:latest --profile=minikube
-                  kubectl apply -f /home/minikube/services/ui/ui-deployment.yaml
+      - name: Deploy UI Service on EC2 Minikube
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: 15.164.104.244
+          username: minikube
+          password: springdemo1234
+          script: |
+            docker load -i /home/minikube/ui-service:latest
+            minikube image load ui-service:latest --profile=minikube
+            kubectl apply -f /home/minikube/services/ui/ui-deployment.yaml
