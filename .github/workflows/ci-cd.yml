@@ -33,11 +33,11 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Run tests for Inventory Service
-        run: ./gradlew :services:inventory-service:test
-
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
+
+      - name: Run tests for Inventory Service
+        run: ./gradlew :services:inventory-service:test
 
       - name: Build Inventory Service
         run: ./gradlew :services:inventory-service:build
