@@ -59,7 +59,7 @@ jobs:
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
-          password: ${{ secrets.EC2_PASSWORD }}
+          key: ${{ secrets.EC2_SSH_KEY  }}
           script: |
             kubectl set image deployment/inventory-deployment inventory-container=csh628/inventory-service:latest
             kubectl rollout status deployment/inventory-deployment
@@ -104,7 +104,7 @@ jobs:
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
-          password: ${{ secrets.EC2_PASSWORD }}
+          key: ${{ secrets.EC2_SSH_KEY  }}
           script: |
             kubectl set image deployment/ui-deployment ui-container=csh628/ui-service:latest
             kubectl rollout status deployment/ui-deployment
