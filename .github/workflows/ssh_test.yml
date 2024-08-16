@@ -1,0 +1,19 @@
+name: SSH Test
+
+on:
+  workflow_dispatch:
+  
+jobs:
+  ssh-test:
+    name: ssh-test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: ssh-test to EC2 
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY  }}
+          script: |
+            whoami
