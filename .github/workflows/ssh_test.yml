@@ -1,0 +1,20 @@
+name: SSH Test
+
+on:
+  workflow_dispatch:
+  
+jobs:
+  ssh-test:
+    name: Build and Test Inventory Service
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to Minikube on EC2
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          password: ${{ secrets.EC2_PASSWORD }}
+          script: |
+            kubectl set image deployment/inventory-deployment inventory-container=csh628/inventory-service:latest
+            kubectl rollout status deployment/inventory-deployment
