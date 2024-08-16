@@ -5,11 +5,11 @@ on:
   
 jobs:
   ssh-test:
-    name: Build and Test Inventory Service
+    name: ssh-test
     runs-on: ubuntu-latest
 
     steps:
-      - name: Deploy to Minikube on EC2
+      - name: ssh-test to EC2 
         uses: appleboy/ssh-action@v0.1.6
         with:
           host: ${{ secrets.EC2_HOST }}
