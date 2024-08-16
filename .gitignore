@@ -35,3 +35,8 @@ out/
 
 ### VS Code ###
 .vscode/
+/.gradle/
+/services/ui/.gradle/
+/services/ui/build/
+/services/inventory-service/build/
+/services/inventory-service/.gradle/
