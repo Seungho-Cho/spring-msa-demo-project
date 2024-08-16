@@ -53,7 +53,7 @@ jobs:
 
       - name: Push Docker image to Docker Hub
         run: docker push csh628/inventory-service:latest
-          -
+
       - name: Transfer YAML files to EC2
         uses: appleboy/scp-action@v0.1.4
         with:
