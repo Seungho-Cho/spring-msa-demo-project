@@ -9,6 +9,7 @@ import org.springframework.beans.BeanUtils;
 @NoArgsConstructor
 @RequiredArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Inventory {
 
     @Id
@@ -22,6 +23,11 @@ public class Inventory {
     @NonNull
     @Column(nullable = false)
     private Integer quantity;
+
+    private double price;
+    private String size;
+    private String color;
+    private String desc;
 
     public void copyFrom(Inventory source) {
         BeanUtils.copyProperties(source, this, "id");

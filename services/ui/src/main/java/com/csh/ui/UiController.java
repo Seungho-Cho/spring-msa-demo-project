@@ -89,7 +89,7 @@ public class UiController {
     }
 
     @GetMapping("/inventory/add")
-    public String showAddInventoryForm(Model model) {
+    public String addInventoryForm(Model model) {
         model.addAttribute("inventory", new InventoryForm());
         return "inventory/addInventory";
     }
@@ -113,7 +113,7 @@ public class UiController {
 
     // Inventory Edit Form View
     @GetMapping("/inventory/edit/{id}")
-    public String showEditInventoryForm(@PathVariable("id") Long id, Model model) {
+    public String editInventoryForm(@PathVariable("id") Long id, Model model) {
         try {
             InventoryForm inventory = webClient.get()
                     .uri(inventoryServiceUrl + "/api/inventory/" + id)
@@ -145,11 +145,49 @@ public class UiController {
         }
     }
 
+    @PostMapping("/inventory/delete/{id}")
+    public String deleteInventory(@PathVariable("id") Long id, Model model) {
+        try {
+            webClient.delete()
+                    .uri(inventoryServiceUrl + "/api/inventory/" + id)
+                    .retrieve()
+                    .bodyToMono(Void.class)
+                    .block();
+            return "redirect:/inventory";
+        } catch (WebClientResponseException e) {
+            model.addAttribute("error", "Failed to delete inventory item: " + e.getMessage());
+            return "inventory/editInventory";
+        }
+    }
+
+    @GetMapping("/inventory/search")
+    public String searchInventories(Model model) {
+        model.addAttribute("inventoryServiceUrl", inventoryServiceUrl);
+        return "inventory/searchInventory";
+    }
+
     // Handle Form Submission
     @GetMapping("/user/register")
-    public String registerUser(@ModelAttribute UserForm userForm, Model model) {
+    public String registerUserForm(@ModelAttribute UserForm userForm, Model model) {
         model.addAttribute("user", new UserForm());
         return "user/registerUser";
+    }
+
+    // Handle Form Submission
+    @PostMapping("/user/register")
+    public String registerUser(@ModelAttribute UserForm userForm, Model model) {
+        try {
+            webClient.post()
+                    .uri(userServiceUrl + "/api/user")
+                    .bodyValue(userForm)
+                    .retrieve()
+                    .bodyToMono(Void.class)
+                    .block();
+            return "redirect:/user";
+        } catch (WebClientResponseException e) {
+            model.addAttribute("error", "Failed to register user: " + e.getMessage());
+            return "user/registerUser";
+        }
     }
 
     @GetMapping("/user")

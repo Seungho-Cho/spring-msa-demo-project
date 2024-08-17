@@ -8,18 +8,39 @@
 <div th:insert="~{common/navbar :: navbar}"></div>
 <h1>Edit Inventory Item</h1>
 <form th:action="@{/inventory/edit/{id}(id=${inventory.id})}" th:object="${inventory}" method="post">
-    <div>
+    <div class="form-group">
         <label for="productName">Product Name:</label>
-        <input type="text" id="productName" th:field="*{productName}" required/>
+        <input type="text" id="productName" th:field="*{productName}" class="form-control" required/>
     </div>
-    <div>
+    <div class="form-group">
         <label for="quantity">Quantity:</label>
-        <input type="number" id="quantity" th:field="*{quantity}" required/>
+        <input type="number" id="quantity" th:field="*{quantity}" class="form-control" required/>
+    </div>
+    <div class="form-group">
+        <label for="price">Price:</label>
+        <input type="number" id="price" th:field="*{price}" class="form-control" step="0.01" required/>
+    </div>
+    <div class="form-group">
+        <label for="size">Size:</label>
+        <input type="text" id="size" th:field="*{size}" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label for="color">Color:</label>
+        <input type="text" id="color" th:field="*{color}" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label for="desc">Description:</label>
+        <textarea id="desc" th:field="*{desc}" class="form-control"></textarea>
     </div>
     <div>
-        <button type="submit">Update Item</button>
+        <button type="submit" class="btn btn-primary">Update Item</button>
     </div>
 </form>
+<form th:action="@{/inventory/delete/{id}(id=${inventory.id})}" method="post" style="margin-top: 20px;">
+    <button type="submit" class="btn btn-primary" onclick="return confirm('Are you sure you want to delete this item?');">Delete</button>
+</form>
+<!-- Delete button -->
+
 <div th:if="${error}">
     <p style="color:red" th:text="${error}"></p>
 </div>

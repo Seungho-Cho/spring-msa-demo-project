@@ -7,10 +7,14 @@
 <body>
 <div th:insert="~{common/navbar :: navbar}"></div>
 <h1>Register User</h1>
-<form th:action="@{/userEntity/register}" th:object="${userEntity}" method="post">
+<form th:action="@{/user/register}" th:object="${user}" method="post">
     <div>
         <label for="userId">User Id:</label>
         <input type="text" id="userId" th:field="*{userId}" required/>
+    </div>
+    <div>
+        <label for="password">password:</label>
+        <input type="text" id="password" th:field="*{password}" required/>
     </div>
     <div>
         <label for="userName">User Name:</label>
@@ -27,6 +31,6 @@
 <div th:if="${error}">
     <p style="color:red" th:text="${error}"></p>
 </div>
-<a th:href="@{/userEntity}">Back to User List</a>
+<a th:href="@{/user}">Back to User List</a>
 </body>
 </html>

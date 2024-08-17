@@ -3,6 +3,7 @@ package com.csh.ui.form;
 public class UserForm {
 
     private String userId;
+    private String password;
     private String userName;
     private String email;
 
@@ -12,6 +13,14 @@ public class UserForm {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getUserName() {

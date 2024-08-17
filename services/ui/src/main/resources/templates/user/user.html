@@ -16,16 +16,16 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="userEntity : ${userList}">
-        <td th:text="${userEntity.userId}">10</td>
-        <td th:text="${userEntity.userName}">10</td>
-        <td th:text="${userEntity.email}">10</td>
+    <tr th:each="user : ${userList}">
+        <td th:text="${user.userId}">10</td>
+        <td th:text="${user.userName}">10</td>
+        <td th:text="${user.email}">10</td>
     </tr>
     </tbody>
 </table>
 
 <div>
-    <a th:href="@{/userEntity/register}">
+    <a th:href="@{/user/register}">
         <button type="button">Regist User</button>
     </a>
 </div>

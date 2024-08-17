@@ -8,13 +8,29 @@
 <div th:insert="~{common/navbar :: navbar}"></div>
 <h1>Add Inventory Item</h1>
 <form th:action="@{/inventory/add}" th:object="${inventory}" method="post">
-    <div>
+    <div class="form-group">
         <label for="productName">Product Name:</label>
-        <input type="text" id="productName" th:field="*{productName}" required/>
+        <input type="text" id="productName" th:field="*{productName}" class="form-control" required/>
     </div>
-    <div>
+    <div class="form-group">
         <label for="quantity">Quantity:</label>
-        <input type="number" id="quantity" th:field="*{quantity}" required/>
+        <input type="number" id="quantity" th:field="*{quantity}" class="form-control" required/>
+    </div>
+    <div class="form-group">
+        <label for="price">Price:</label>
+        <input type="number" id="price" th:field="*{price}" class="form-control" step="1" />
+    </div>
+    <div class="form-group">
+        <label for="size">Size:</label>
+        <input type="text" id="size" th:field="*{size}" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label for="color">Color:</label>
+        <input type="text" id="color" th:field="*{color}" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label for="desc">Description:</label>
+        <textarea id="desc" th:field="*{desc}" class="form-control"></textarea>
     </div>
     <div>
         <button type="submit">Add Item</button>

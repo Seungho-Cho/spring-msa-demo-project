@@ -13,6 +13,10 @@
         <th>ID</th>
         <th>Product Name</th>
         <th>Quantity</th>
+        <th>Price</th>
+        <th>Size</th>
+        <th>Color</th>
+        <th>Desc</th>
     </tr>
     </thead>
     <tbody>
@@ -20,6 +24,10 @@
         <td th:text="${inventory.id}">1</td>
         <td><a th:href="@{/inventory/edit/{id}(id=${inventory.id})}" th:text="${inventory.productName}">Product Name</a></td>
         <td th:text="${inventory.quantity}">10</td>
+        <td th:text="${inventory.price}">10</td>
+        <td th:text="${inventory.size}">10</td>
+        <td th:text="${inventory.color}">10</td>
+        <td th:text="${inventory.desc}">10</td>
     </tr>
     </tbody>
 </table>

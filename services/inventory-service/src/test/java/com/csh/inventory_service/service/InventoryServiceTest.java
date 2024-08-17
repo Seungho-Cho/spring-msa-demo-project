@@ -51,7 +51,12 @@ public class InventoryServiceTest {
     @Test
     @Transactional
     void testSaveInventory() {
-        Inventory result = inventoryService.saveInventory(new Inventory(1L,"Product Test",1));
+        Inventory target = Inventory.builder()
+                .productName("Product Test")
+                .quantity(1)
+                .build();
+
+        Inventory result = inventoryService.saveInventory(target);
 
         assertNotNull(result);
         assertEquals("Product Test", result.getProductName());

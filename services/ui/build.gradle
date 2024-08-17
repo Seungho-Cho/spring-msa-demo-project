@@ -28,6 +28,6 @@ task bootRunLocal(type: org.springframework.boot.gradle.tasks.run.BootRun) {
     group = 'Application'
     description = 'Run the application with the local profile'
     systemProperty 'spring.profiles.active', 'local'
-    mainClass.set("com.example.ui.UiApplication")
+    mainClass.set("com.csh.ui.UiApplication")
     classpath = sourceSets.main.runtimeClasspath
 }
