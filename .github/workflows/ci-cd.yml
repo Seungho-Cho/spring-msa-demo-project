@@ -115,16 +115,7 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
-          source: "services/ui/ui-deployment.yaml"
-          target: "/home/${{ secrets.EC2_USER }}/deployments/"
-
-      - name: Transfer service YAML files to EC2
-        uses: appleboy/scp-action@v0.1.4
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USER }}
-          key: ${{ secrets.EC2_SSH_KEY }}
-          source: "services/ui/ui-service.yaml"
+          source: "services/ui/ui-deployment.yaml services/ui/ui-service.yaml"
           target: "/home/${{ secrets.EC2_USER }}/deployments/"
 
       - name: Deploy to Minikube on EC2
