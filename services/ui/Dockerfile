@@ -1,5 +1,5 @@
 # Use a base image with OpenJDK 17
-FROM adoptopenjdk:17-jre-hotspot
+FROM eclipse-temurin:17-jre-alpine
 
 # Set the working directory inside the container
 WORKDIR /app
