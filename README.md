@@ -48,6 +48,7 @@ spring-demo-project/
 - **Java 17**
 - **Spring Boot 3.3.2**
 - **Spring Data JPA**
+- **GraphQL**
 - **H2 Database**: 테스트를 위한 인메모리 데이터베이스
 - **MySQL (AWS RDS)**: 배포 환경에서는 AWS RDS의 MySQL을 사용
 
@@ -83,6 +84,6 @@ CI/CD 파이프라인은 GitHub Actions를 사용하여 구현되었습니다.
 
 
 ## 향후 개선 사항
-- OAuth2 또는 JWT를 이용한 보안 강화.
+- OAuth2 또는 JWT와 API Gateway 사용한 보안 강화.
 - Amazon EKS 또는 Google Kubernetes Engine(GKE)을 사용한 프로덕션 환경 구축.
 - Prometheus, Grafana와 같은 모니터링 구현.
