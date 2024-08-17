@@ -1,5 +1,5 @@
 # Use a base image with OpenJDK 17
-FROM openjdk:17-alpine
+FROM arm64v8/openjdk:17-alpine
 
 # Set the working directory inside the container
 WORKDIR /app
