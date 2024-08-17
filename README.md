@@ -86,6 +86,7 @@ https://github.com/Seungho-Cho/spring-msa-demo-project/blob/main/.github/workflo
 
 
 ## 향후 개선 사항
+- Spring Cloud config를 사용한 config 중앙화
 - OAuth2 또는 JWT와 API Gateway 사용한 보안 강화.
 - Amazon EKS 또는 Google Kubernetes Engine(GKE)을 사용한 프로덕션 환경 구축.
 - Prometheus, Grafana와 같은 모니터링 구현.
