@@ -7,7 +7,7 @@
 이 프로젝트는 Spring Boot로 구축된 마이크로서비스를 구현하고자 하였으며,  
 GitHub Actions을 통한 CI/CD 파이프라인, Docker 등 기존 기술 스택을 정리하고,
 
-Minikube를 활용한 Kubernetes 클러스터 배포와 마이크로서비스 등 신규 기술 습득을 목표로 했습니다.  
+Minikube를 활용한 Kubernetes 클러스터 배포와 마이크로서비스, GraphQL 등 신규 기술 습득을 목표로 했습니다.  
 또한 Thymeleaf 구현한 기본적인 UI 서비스도 포함되어 있습니다.
 
 ## 프로젝트 구조
