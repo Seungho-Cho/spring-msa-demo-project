@@ -43,7 +43,7 @@ jobs:
         run: ./gradlew :services:inventory-service:build
 
       - name: Build Docker image for Inventory Service
-        run: docker build -t csh628/inventory-service:latest -f services/inventory-service/Dockerfile .
+        run: docker build --platform linux/arm64 -t csh628/inventory-service:latest -f services/inventory-service/Dockerfile .
 
       - name: Login to Docker Hub
         uses: docker/login-action@v2
@@ -53,15 +53,6 @@ jobs:
 
       - name: Push Docker image to Docker Hub
         run: docker push csh628/inventory-service:latest
-
-      - name: Transfer YAML files to EC2
-        uses: appleboy/scp-action@v0.1.4
-        with:
-         host: ${{ secrets.EC2_HOST }}
-         username: ${{ secrets.EC2_USER }}
-         key: ${{ secrets.EC2_SSH_KEY }}
-         source: "services/inventory-service/inventory-deployment.yaml"
-         target: "/home/${{ secrets.EC2_USER }}/deployments/"
 
       - name: Deploy to Minikube on EC2
         uses: appleboy/ssh-action@v0.1.6
@@ -98,7 +89,7 @@ jobs:
         run: ./gradlew :services:ui:build
 
       - name: Build Docker image for UI Service
-        run: docker build -t csh628/ui-service:latest -f services/ui/Dockerfile .
+        run: docker build --platform linux/arm64 -t csh628/ui-service:latest -f services/ui/Dockerfile .
 
       - name: Login to Docker Hub
         uses: docker/login-action@v2
@@ -108,15 +99,6 @@ jobs:
 
       - name: Push Docker image to Docker Hub
         run: docker push csh628/ui-service:latest
-
-      - name: Transfer YAML files to EC2
-        uses: appleboy/scp-action@v0.1.4
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USER }}
-          key: ${{ secrets.EC2_SSH_KEY }}
-          source: "services/ui/ui-deployment.yaml services/ui/ui-service.yaml"
-          target: "/home/${{ secrets.EC2_USER }}/deployments/"
 
       - name: Deploy to Minikube on EC2
         uses: appleboy/ssh-action@v0.1.6
