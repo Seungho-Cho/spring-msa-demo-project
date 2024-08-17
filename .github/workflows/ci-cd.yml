@@ -71,7 +71,7 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY  }}
           script: |
             set -e
-            kubectl apply -f /home/${{ secrets.EC2_USER }}/deployments/inventory-service/inventory-deployment.yaml
+            kubectl apply -f /home/${{ secrets.EC2_USER }}/deployments/services/inventory-service/inventory-deployment.yaml
             kubectl rollout status deployment/inventory-deployment
 
   build-and-test-ui-service:
@@ -126,6 +126,6 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY  }}
           script: |
             set -e
-            kubectl apply -f /home/${{ secrets.EC2_USER }}/deployments/ui/ui-deployment.yaml
-            kubectl apply -f /home/${{ secrets.EC2_USER }}/deployments/ui/ui-service.yaml
+            kubectl apply -f /home/${{ secrets.EC2_USER }}/deployments/services/ui/ui-deployment.yaml
+            kubectl apply -f /home/${{ secrets.EC2_USER }}/deployments/services/ui/ui-service.yaml
             kubectl rollout status deployment/ui-deployment
