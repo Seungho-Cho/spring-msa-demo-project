@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<h1>Login</h1>
+
+<form id="loginForm">
+    <div>
+        <label for="userId">User ID:</label>
+        <input type="text" id="userId" name="userId">
+    </div>
+    <div>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password">
+    </div>
+    <div>
+        <button type="submit">Login</button>
+    </div>
+</form>
+
+<!-- Error message display -->
+<div id="error-message" style="color: red;"></div>
+
+<script>
+    const authServiceUrl = '[[${userServiceUrl}]]';
+
+    $(document).ready(function() {
+        $('#loginForm').on('submit', function(event) {
+            event.preventDefault(); // 폼의 기본 제출 동작을 막음
+
+            // 폼 데이터를 가져옴
+            var formData = {
+                userId: $('#userId').val(),
+                password: $('#password').val()
+            };
+
+            // AJAX 요청
+            $.ajax({
+                url: authServiceUrl+'/auth/login',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(formData),
+                success: function(response) {
+                    // 로그인 성공 시
+                    window.location.href = '/'; // 성공 시 이동할 페이지
+                },
+                error: function(xhr) {
+                    // 로그인 실패 시
+                    $('#error-message').text(xhr.responseText); // 서버로부터 받은 오류 메시지 표시
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

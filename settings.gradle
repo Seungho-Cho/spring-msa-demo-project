@@ -1,6 +1,6 @@
 rootProject.name = 'spring-demo-project'
 
 include 'services:inventory-service'
-//include 'services:user-service'
+include 'services:user-service'
 //include 'services:order-service'
 include 'services:ui'

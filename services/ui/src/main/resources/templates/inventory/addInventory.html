@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Inventory Item</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<div th:insert="~{common/navbar :: navbar}"></div>
+<h1>Add Inventory Item</h1>
+<form th:action="@{/inventory/add}" th:object="${inventory}" method="post">
+    <div>
+        <label for="productName">Product Name:</label>
+        <input type="text" id="productName" th:field="*{productName}" required/>
+    </div>
+    <div>
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" th:field="*{quantity}" required/>
+    </div>
+    <div>
+        <button type="submit">Add Item</button>
+    </div>
+</form>
+<div th:if="${error}">
+    <p style="color:red" th:text="${error}"></p>
+</div>
+<a th:href="@{/inventory}">Back to Inventory List</a>
+</body>
+</html>

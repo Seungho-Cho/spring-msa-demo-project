@@ -33,3 +33,6 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+task bootRunLocal(type: org.springframework.boot.gradle.tasks.run.BootRun) {
+}
