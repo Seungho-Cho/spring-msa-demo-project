@@ -34,6 +34,12 @@ spring-demo-project/
 │   │   ├── Dockerfile                   # 서비스의 Docker 컨테이너를 위한 Dockerfile
 │   │   ├── inventory-deployment.yaml    # 주문 서비스의 Kubernetes 배포 파일
 │   │   └── ...
+│   ├── shipping-service/                # 출고 서비스 (구현예정)
+│   │   ├── src/                         # 출고 서비스 소스 코드
+│   │   ├── build.gradle                 # Gradle 빌드 스크립트
+│   │   ├── Dockerfile                   # 서비스의 Docker 컨테이너를 위한 Dockerfile
+│   │   ├── inventory-deployment.yaml    # 출고 서비스의 Kubernetes 배포 파일
+│   │   └── ...
 │   └── ui/                              # UI 서비스
 │       ├── src/                         # UI 소스 코드
 │       ├── build.gradle                 # Gradle 빌드 스크립트
@@ -44,6 +50,9 @@ spring-demo-project/
 └── settings.gradle                      # Gradle 설정 파일
 ```
 
+<img width="800" alt="화면 캡처 2024-08-18 031235" src="https://github.com/user-attachments/assets/2ee5a235-4424-4558-9e0e-0c529ce8cd7e">
+
+
 ## 기술 스택
 
 ### 백엔드
@@ -51,6 +60,7 @@ spring-demo-project/
 - **Spring Boot 3.3.2**
 - **Spring Data JPA**
 - **GraphQL**
+- **AWS SQS** : 주문/출고 서비스간 메시지 큐 구현
 - **H2 Database**: 테스트를 위한 인메모리 데이터베이스
 - **MySQL (AWS RDS)**: 배포 환경에서는 AWS RDS의 MySQL을 사용
 
