@@ -27,7 +27,7 @@ spring-demo-project/
 │   │   ├── Dockerfile                   # 서비스의 Docker 컨테이너를 위한 Dockerfile
 │   │   ├── inventory-deployment.yaml    # 유저 서비스의 Kubernetes 배포 파일
 │   │   └── ...
-│   ├── order-service/                   # 주문 서비스
+│   ├── order-service/                   # 주문 서비스 (구현예정)
 │   │   ├── src/                         # 주문 서비스 소스 코드
 │   │   ├── build.gradle                 # Gradle 빌드 스크립트
 │   │   ├── Dockerfile                   # 서비스의 Docker 컨테이너를 위한 Dockerfile
