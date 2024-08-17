@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Search</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<div th:insert="~{common/navbar :: navbar}"></div>
+<h1>Search Inventory</h1>
+<form id="searchForm">
+    <label for="productName">Product Name:</label>
+    <input type="text" id="productName" name="productName">
+
+    <label for="quantity">Quantity:</label>
+    <input type="number" id="quantity" name="quantity">
+
+    <label for="price">price:</label>
+    <input type="number" id="price" name="price">
+
+    <label for="size">size:</label>
+    <input type="text" id="size" name="size">
+
+    <label for="color">color:</label>
+    <input type="text" id="color" name="color">
+
+    <label for="description">description:</label>
+    <input type="text" id="description" name="description">
+
+    <button type="button" onclick="searchInventories()">Search</button>
+</form>
+
+<h2>Results</h2>
+<div id="results"></div>
+
+<script>
+    function searchInventories() {
+
+        const inventoryServiceUrl = '[[${inventoryServiceUrl}]]';
+
+        const productName = document.getElementById('productName').value;
+        const quantity = document.getElementById('quantity').value;
+        const price = document.getElementById('price').value;
+        const size = document.getElementById('size').value;
+        const color = document.getElementById('color').value;
+        const description = document.getElementById('description').value;
+
+        const query = `
+                query($filter: InventoryFilter) {
+                    searchInventories(filter: $filter) {
+                        id
+                        productName
+                        quantity
+                        price
+                        size
+                        color
+                        description
+                    }
+                }
+            `;
+
+        const variables = {
+            filter: {
+                productName: productName || null,
+                quantity: quantity ? parseInt(quantity) : null,
+                price: price ? parseFloat(price) : null,
+                size: size || null,
+                color: color || null,
+                description: description || null
+            }
+        };
+
+        axios.post(inventoryServiceUrl+'/api/inventory/graphql', {
+            query: query,
+            variables: variables
+        })
+            .then(response => {
+                const results = response.data.data.searchInventories;
+                let resultHtml = '';
+
+                results.forEach(item => {
+                    resultHtml += `<p>ID: ${item.id}, Name: ${item.productName}, Quantity: ${item.quantity}, Price: ${item.price}, size: ${item.size}, color: ${item.color}, description: ${item.description}</p>`;
+                });
+
+                document.getElementById('results').innerHTML = resultHtml;
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    }
+</script>
+</body>
+</html>

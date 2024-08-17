@@ -1,0 +1,22 @@
+input InventoryFilter {
+    productName: String
+    quantity: Int
+    price: Int
+    size: String
+    color: String
+    description: String
+}
+
+type Inventory {
+    id: ID!
+    productName: String
+    quantity: Int
+    price: Int
+    size: String
+    color: String
+    description: String
+}
+
+type Query {
+    searchInventories(filter: InventoryFilter): [Inventory]
+}
