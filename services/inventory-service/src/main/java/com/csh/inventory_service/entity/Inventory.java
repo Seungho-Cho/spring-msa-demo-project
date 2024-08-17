@@ -1,5 +1,6 @@
 package com.csh.inventory_service.entity;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.beans.BeanUtils;
@@ -24,10 +25,10 @@ public class Inventory {
     @Column(nullable = false)
     private Integer quantity;
 
-    private double price;
+    private Double price;
     private String size;
     private String color;
-    private String desc;
+    private String description;
 
     public void copyFrom(Inventory source) {
         BeanUtils.copyProperties(source, this, "id");

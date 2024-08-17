@@ -10,7 +10,7 @@ public class InventoryForm {
     private Double price;
     private String size;
     private String color;
-    private String desc;
+    private String description;
 
     // Getters and Setters
 
@@ -62,11 +62,11 @@ public class InventoryForm {
         this.color = color;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
