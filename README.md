@@ -74,7 +74,8 @@ spring-demo-project/
 
 CI/CD 파이프라인은 GitHub Actions를 사용하여 구현되었습니다.
 
-### Git Actions 워크플로우
+### Git Actions 워크플로우 
+https://github.com/Seungho-Cho/spring-msa-demo-project/blob/main/.github/workflows/ci-cd.yml
 1. **빌드 및 테스트**: 각 마이크로서비스는 Gradle을 사용해 빌드 및 테스트됩니다.
 2. **Docker 이미지 생성**: 빌드 및 테스트가 성공하면 Docker 이미지를 생성합니다.
 3. **Docker Hub 푸시**: 생성된 Docker 이미지는 Docker Hub에 푸시됩니다.
