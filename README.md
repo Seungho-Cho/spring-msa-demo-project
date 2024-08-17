@@ -38,6 +38,7 @@ spring-demo-project/
 │       ├── build.gradle                 # Gradle 빌드 스크립트
 │       ├── Dockerfile                   # UI의 Docker 컨테이너를 위한 Dockerfile
 │       ├── ui-deployment.yaml           # UI 서비스의 Kubernetes 배포 파일
+│       ├── ui-service.yaml              # UI 서비스의 Kubernetes 서비스 구성 파일
 │       └── ...
 └── settings.gradle                      # Gradle 설정 파일
 ```
