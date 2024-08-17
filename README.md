@@ -6,8 +6,8 @@
 
 이 프로젝트는 Spring Boot로 구축된 마이크로서비스를 구현하고자 하였으며,  
 GitHub Actions을 통한 CI/CD 파이프라인, Docker 등 기존 기술 스택을 정리하고,
-Minikube를 이용한 Kubernetes 클러스터 배포와 마이크로서비스 등 신규 기술 습득을 목표로 했습니다.  
-또한 마이크로서비스와 상호작용할 수 있는 기본적인 UI도 포함되어 있습니다.
+Minikube를 활용한 Kubernetes 클러스터 배포와 마이크로서비스 등 신규 기술 습득을 목표로 했습니다.  
+또한 Thymeleaf 구현한 기본적인 UI 서비스도 포함되어 있습니다.
 
 ## 프로젝트 구조
 
@@ -21,7 +21,7 @@ spring-demo-project/
 │   │   ├── Dockerfile                   # 서비스의 Docker 컨테이너를 위한 Dockerfile
 │   │   ├── inventory-deployment.yaml    # 인벤토리 서비스의 Kubernetes 배포 파일
 │   │   └── ...
-│   ├── userEntity-service/                    # 유저 서비스 
+│   ├── userEntity-service/              # 유저 서비스 
 │   │   ├── src/                         # 유저 서비스 소스 코드
 │   │   ├── build.gradle                 # Gradle 빌드 스크립트
 │   │   ├── Dockerfile                   # 서비스의 Docker 컨테이너를 위한 Dockerfile
@@ -74,7 +74,7 @@ spring-demo-project/
 
 CI/CD 파이프라인은 GitHub Actions를 사용하여 구현되었습니다.
 
-### 워크플로우 개요
+### Git Actions 워크플로우
 1. **빌드 및 테스트**: 각 마이크로서비스는 Gradle을 사용해 빌드 및 테스트됩니다.
 2. **Docker 이미지 생성**: 빌드 및 테스트가 성공하면 Docker 이미지를 생성합니다.
 3. **Docker Hub 푸시**: 생성된 Docker 이미지는 Docker Hub에 푸시됩니다.
