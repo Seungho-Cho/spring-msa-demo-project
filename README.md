@@ -3,9 +3,9 @@
 # 스프링 마이크로서비스 데모 프로젝트
 
 ## 데모 서버
- - **LOCAL (Kubernetes)**: http://175.214.62.12:30001/
  - **LOCAL (dev)**: http://175.214.62.12:8081/
- - **EC2 (minikube)**: http://3.34.126.6:8081/
+ - **LOCAL (Kubernetes)**: http://175.214.62.12:30001/
+ - ~~**EC2 (minikube)**: http://3.34.126.6:8081/~~
  - **Docker Hub**: https://hub.docker.com/u/csh628
 
 ## 개요
