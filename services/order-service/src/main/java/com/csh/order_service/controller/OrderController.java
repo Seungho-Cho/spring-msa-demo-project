@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/order")
@@ -24,8 +25,10 @@ public class OrderController {
         return orderService.createOrder(orderEntity);
     }
 
-    @PostMapping("/status/{id}")
-    public OrderEntity changeOrderStatus(@PathVariable String orderId, @RequestParam String status, @RequestParam String shippingDate ) {
-        return orderService.updateOrderStatusById(orderId,status,shippingDate);
+    @PostMapping("/status/{orderId}")
+    public OrderEntity changeOrderStatus(@PathVariable String orderId, @RequestBody Map<String, String> requestBody) {
+        String orderStatus = requestBody.get("orderStatus");
+        String shippingDate = requestBody.get("shippingDate");
+        return orderService.updateOrderStatusById(orderId, orderStatus, shippingDate);
     }
 }

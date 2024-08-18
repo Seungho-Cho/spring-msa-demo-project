@@ -1,7 +1,7 @@
 input InventoryFilter {
     productName: String
     quantity: Int
-    price: Int
+    price: Float
     size: String
     color: String
     description: String
@@ -11,7 +11,7 @@ type Inventory {
     id: ID!
     productName: String
     quantity: Int
-    price: Int
+    price: Float
     size: String
     color: String
     description: String

@@ -17,7 +17,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 
 @Service
 public class SqsReceiveService {
@@ -38,7 +37,6 @@ public class SqsReceiveService {
     private String orderServiceUrl;
 
     public void receiveMessges() {
-
         ReceiveMessageRequest receiveMessageRequest = ReceiveMessageRequest.builder()
                 .queueUrl(queueUrl)
                 .maxNumberOfMessages(10)
@@ -50,8 +48,7 @@ public class SqsReceiveService {
         for (Message message : messageList) {
             try{
                 Map<String, String> messageMap = objectMapper.readValue(message.body(), new TypeReference<Map<String, String>>() {});
-
-                updateOrderStatus(messageMap.get("orderId"),OrderStatus.SHIPPED);
+                updateOrderStatusShipped(messageMap.get("orderId"));
                 deleteMessage(message);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -70,12 +67,12 @@ public class SqsReceiveService {
         sqsReceiveClient.deleteMessage(deleteRequest);
     }
 
-    public void updateOrderStatus(String orderId, OrderStatus newStatus) {
+    public void updateOrderStatusShipped(String orderId) {
         String url = orderServiceUrl + "/api/order/status/" + orderId;
         Map<String, String> request = new HashMap<>();
-        request.put("orderStatus", newStatus.toString());
+        request.put("orderStatus", OrderStatus.SHIPPED.toString());
         request.put("shippingDate", LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
-        restTemplate.put(url, request);
+        restTemplate.postForObject(url, request, Void.class);
     }
 
 

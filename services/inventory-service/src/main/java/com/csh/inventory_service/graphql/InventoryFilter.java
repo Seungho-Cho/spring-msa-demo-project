@@ -6,7 +6,7 @@ import lombok.Data;
 public class InventoryFilter {
     private String productName;
     private Integer quantity;
-    private Float price;
+    private Double price;
     private String size;
     private String color;
     private String description;

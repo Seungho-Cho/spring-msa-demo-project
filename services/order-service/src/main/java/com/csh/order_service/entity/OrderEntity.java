@@ -4,8 +4,6 @@ import com.csh.order_service.enums.OrderStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
-
 @Entity
 @Data
 @Builder

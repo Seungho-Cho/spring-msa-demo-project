@@ -5,7 +5,6 @@ import com.csh.order_service.enums.OrderStatus;
 import com.csh.order_service.repository.OrderRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.hibernate.query.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -61,7 +60,7 @@ public class OrderService {
 
     private OrderEntity saveEntity(OrderEntity orderEntity) {
         orderEntity.setOrderStatus(OrderStatus.PENDING);
-        orderEntity.setOrderDate(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME));
+        orderEntity.setOrderDate(LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
         return orderRepository.save(orderEntity);
     }
 
@@ -73,7 +72,7 @@ public class OrderService {
         return orderRepository.findById(Long.parseLong(id))
                 .map(orderEntity -> {
                     orderEntity.setOrderStatus(OrderStatus.valueOf(orderStatus));
-                    orderEntity.setOrderDate(statusDate);
+                    orderEntity.setShippingDate(statusDate);
                     return orderRepository.save(orderEntity);
                 })
                 .orElseThrow(() -> new IllegalArgumentException("Order not exist OR Order status not available"));
