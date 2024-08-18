@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: order-service
+  template:
+    metadata:
+      labels:
+        app: order-service
+    spec:
+      containers:
+        - name: order-container
+          image: csh628/order-service:latest
+          ports:
+            - containerPort: 8078

@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shipping-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: shipping-service
+  template:
+    metadata:
+      labels:
+        app: shipping-service
+    spec:
+      containers:
+        - name: shipping-container
+          image: csh628/shipping-service:latest
+          ports:
+            - containerPort: 8077
