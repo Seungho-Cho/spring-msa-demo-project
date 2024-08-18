@@ -7,7 +7,14 @@
 <body>
 <div th:insert="~{common/navbar :: navbar}"></div>
 <h1>Inventory List</h1>
-<table>
+
+<div>
+    <a th:href="@{/inventory/add}">
+        <button type="button">Add New Inventory Item</button>
+    </a>
+</div>
+
+<table class="table">
     <thead>
     <tr>
         <th>ID</th>
@@ -32,11 +39,6 @@
     </tbody>
 </table>
 
-<div>
-    <a th:href="@{/inventory/add}">
-        <button type="button">Add New Inventory Item</button>
-    </a>
-</div>
 
 <div th:if="${error}">
     <p style="color:red" th:text="${error}"></p>

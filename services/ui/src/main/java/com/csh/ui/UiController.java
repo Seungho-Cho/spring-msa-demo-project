@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
+//import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 //import util.JwtUtil;
@@ -27,6 +27,9 @@ public class UiController {
 
     @Value("${user.service.url}")
     private String userServiceUrl;
+
+    @Value("${order.service.url}")
+    private String orderServiceUrl;
 
     public UiController(WebClient.Builder webClientBuilder/*, RestTemplate restTemplate*/) {
         this.webClient = webClientBuilder.build();
@@ -163,6 +166,7 @@ public class UiController {
     @GetMapping("/inventory/search")
     public String searchInventories(Model model) {
         model.addAttribute("inventoryServiceUrl", inventoryServiceUrl);
+        model.addAttribute("orderServiceUrl", orderServiceUrl);
         return "inventory/searchInventory";
     }
 
@@ -201,5 +205,19 @@ public class UiController {
 
         model.addAttribute("userList", userList);
         return "user/user";
+    }
+
+
+    @GetMapping("/order")
+    public String getOrderList(Model model) {
+        List<Object> orderList = webClient.get()
+                .uri(orderServiceUrl + "/api/order")
+                .retrieve()
+                .bodyToFlux(Object.class)
+                .collectList()
+                .block();
+
+        model.addAttribute("orderList", orderList);
+        return "order/order";
     }
 }

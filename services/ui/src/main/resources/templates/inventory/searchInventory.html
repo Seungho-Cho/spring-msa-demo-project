@@ -33,12 +33,29 @@
 </form>
 
 <h2>Results</h2>
-<div id="results"></div>
+<table class="table">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Size</th>
+        <th>Color</th>
+        <th>Description</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody id="results">
+    <!-- Results will be inserted here -->
+    </tbody>
+</table>
 
 <script>
-    function searchInventories() {
+    const inventoryServiceUrl = '[[${inventoryServiceUrl}]]';
+    const orderServiceUrl = '[[${orderServiceUrl}]]';
 
-        const inventoryServiceUrl = '[[${inventoryServiceUrl}]]';
+    function searchInventories() {
 
         const productName = document.getElementById('productName').value;
         const quantity = document.getElementById('quantity').value;
@@ -81,13 +98,52 @@
                 let resultHtml = '';
 
                 results.forEach(item => {
-                    resultHtml += `<p>ID: ${item.id}, Name: ${item.productName}, Quantity: ${item.quantity}, Price: ${item.price}, size: ${item.size}, color: ${item.color}, description: ${item.description}</p>`;
+                    resultHtml += `<tr>
+                                    <td>${item.id}</td>
+                                    <td>${item.productName}</td>
+                                    <td>${item.quantity}</td>
+                                    <td>${item.price}</td>
+                                    <td>${item.size}</td>
+                                    <td>${item.color}</td>
+                                    <td>${item.description}</td>
+                                    <td><button type="button" class="btn btn-primary" onclick="orderProduct(${item.id})">Order</button></td>
+                                   </tr>`;
                 });
 
                 document.getElementById('results').innerHTML = resultHtml;
             })
             .catch(error => {
                 console.error('Error fetching data:', error);
+            });
+    }
+
+    function orderProduct(id) {
+        const orderEntity = {
+            inventoryId: id,
+            userId: "admin"
+        };
+
+        fetch(orderServiceUrl+'/api/order', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(orderEntity)
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Order successfully created:', data);
+                alert('Order successfully created!');
+                window.location.href = '/order';
+            })
+            .catch(error => {
+                console.error('There was a problem with the order request:', error);
+                alert('Failed to create order.');
             });
     }
 </script>
