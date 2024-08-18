@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Order List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<div th:insert="~{common/navbar :: navbar}"></div>
+<h1>Order List</h1>
+<table class="table">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Product ID</th>
+        <th>User ID</th>
+        <th>Ordered Time</th>
+        <th>Shipped Time</th>
+        <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="order : ${orderList}">
+        <td th:text="${order.orderId}">1</td>
+        <td th:text="${order.inventoryId}">2</td>
+        <td th:text="${order.userId}">userId</td>
+        <td class="time" th:text="${order.orderDate}">9999.99.99 99:99:99</td>
+        <td class="time" th:text="${order.shippingDate}">9999.99.99 99:99:99</td>
+        <td th:text="${order.orderStatus}">PENDING</td>
+    </tr>
+    </tbody>
+</table>
+
+<div th:if="${error}">
+    <p style="color:red" th:text="${error}"></p>
+</div>
+</body>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const timeCells = document.querySelectorAll(".time");
+
+        timeCells.forEach(cell => {
+            const originalTime = cell.textContent;
+            if(!originalTime) return;
+            const date = new Date(originalTime);
+            const formattedTime = date.toLocaleString();
+            cell.textContent = formattedTime;
+        });
+    });
+</script>
+
+</html>
