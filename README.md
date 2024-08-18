@@ -27,31 +27,35 @@ spring-demo-project/
 │   │   ├── build.gradle                 # Gradle 빌드 스크립트
 │   │   ├── Dockerfile                   # 서비스의 Docker 컨테이너를 위한 Dockerfile
 │   │   ├── inventory-deployment.yaml    # 인벤토리 서비스의 Kubernetes 배포 파일
+│   │   ├── inventory-service.yaml       # 인벤토리 서비스의 Kubernetes 서비스 파일
 │   │   └── ...
-│   ├── user-service/              # 유저 서비스 
+│   ├── user-service/                    # 유저 서비스 
 │   │   ├── src/                         # 유저 서비스 소스 코드
 │   │   ├── build.gradle                 # Gradle 빌드 스크립트
 │   │   ├── Dockerfile                   # 서비스의 Docker 컨테이너를 위한 Dockerfile
-│   │   ├── inventory-deployment.yaml    # 유저 서비스의 Kubernetes 배포 파일
+│   │   ├── user-deployment.yaml         # 유저 서비스의 Kubernetes 배포 파일
+│   │   ├── user-service.yaml            # 유저 서비스의 Kubernetes 서비스 파일
 │   │   └── ...
 │   ├── order-service/                   # 주문 서비스 
 │   │   ├── src/                         # 주문 서비스 소스 코드
 │   │   ├── build.gradle                 # Gradle 빌드 스크립트
 │   │   ├── Dockerfile                   # 서비스의 Docker 컨테이너를 위한 Dockerfile
-│   │   ├── inventory-deployment.yaml    # 주문 서비스의 Kubernetes 배포 파일
+│   │   ├── order-deployment.yaml        # 주문 서비스의 Kubernetes 배포 파일
+│   │   ├── order-service.yaml           # 주문 서비스의 Kubernetes 서비스 파일
 │   │   └── ...
 │   ├── shipping-service/                # 출고 서비스
 │   │   ├── src/                         # 출고 서비스 소스 코드
 │   │   ├── build.gradle                 # Gradle 빌드 스크립트
 │   │   ├── Dockerfile                   # 서비스의 Docker 컨테이너를 위한 Dockerfile
-│   │   ├── inventory-deployment.yaml    # 출고 서비스의 Kubernetes 배포 파일
+│   │   ├── shipping-deployment.yaml     # 출고 서비스의 Kubernetes 배포 파일
+│   │   ├── shipping-service.yaml        # 출고 서비스의 Kubernetes 서비스 파일
 │   │   └── ...
 │   └── ui/                              # UI 서비스
 │       ├── src/                         # UI 소스 코드
 │       ├── build.gradle                 # Gradle 빌드 스크립트
 │       ├── Dockerfile                   # UI의 Docker 컨테이너를 위한 Dockerfile
 │       ├── ui-deployment.yaml           # UI 서비스의 Kubernetes 배포 파일
-│       ├── ui-service.yaml              # UI 서비스의 Kubernetes 서비스 구성 파일
+│       ├── ui-service.yaml              # UI 서비스의 Kubernetes 서비스 파일
 │       └── ...
 └── settings.gradle                      # Gradle 설정 파일
 ```
