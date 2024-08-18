@@ -2,6 +2,7 @@ package com.csh.order_service.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import software.amazon.awssdk.services.sqs.SqsClient;
 import software.amazon.awssdk.services.sqs.model.SendMessageRequest;
@@ -11,7 +12,9 @@ public class SqsService {
 
     @Autowired
     private SqsClient sqsClient;
-    private final String queueUrl = "https://sqs.ap-northeast-2.amazonaws.com/091012489433/msa-sqs-demo";
+
+    @Value("${aws.queueUrl}")
+    private String queueUrl;
 
     public void sendMessage(String message) {
         SendMessageRequest sendMessageRequest = SendMessageRequest.builder()

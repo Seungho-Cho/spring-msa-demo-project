@@ -23,4 +23,9 @@ public class OrderController {
     public OrderEntity createOrder(@RequestBody OrderEntity orderEntity) {
         return orderService.createOrder(orderEntity);
     }
+
+    @PostMapping("/status/{id}")
+    public OrderEntity changeOrderStatus(@PathVariable String orderId, @RequestParam String status, @RequestParam String shippingDate ) {
+        return orderService.updateOrderStatusById(orderId,status,shippingDate);
+    }
 }
