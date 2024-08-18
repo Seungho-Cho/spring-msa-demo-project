@@ -108,6 +108,12 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
+      - name: Set environment variables from secrets
+        run: |
+          echo "AWS_ACCESS_KEY_ID=${{ secrets.SQS_ACCESS_KEY_ID }}" >> $GITHUB_ENV
+          echo "AWS_SECRET_ACCESS_KEY=${{ secrets.SQS_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
+          echo "AWS_QUEUE_URL=${{ secrets.SQS_URL }}" >> $GITHUB_ENV
+
       - name: Run tests for order Service
         run: ./gradlew :services:order-service:test
 
@@ -170,8 +176,14 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-#      - name: Run tests for shipping Service
-#        run: ./gradlew :services:shipping-service:test
+      - name: Set environment variables from secrets
+        run: |
+          echo "AWS_ACCESS_KEY_ID=${{ secrets.SQS_ACCESS_KEY_ID }}" >> $GITHUB_ENV
+          echo "AWS_SECRET_ACCESS_KEY=${{ secrets.SQS_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
+          echo "AWS_QUEUE_URL=${{ secrets.SQS_URL }}" >> $GITHUB_ENV
+
+      - name: Run tests for shipping Service
+        run: ./gradlew :services:shipping-service:test
 
       - name: Build shipping Service
         run: ./gradlew :services:shipping-service:build
