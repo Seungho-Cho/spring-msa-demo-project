@@ -1,8 +1,8 @@
 package com.csh.inventory_service.service;
 
-import com.csh.inventory_service.TestDataInitializer;
 import com.csh.inventory_service.entity.Inventory;
 import com.csh.inventory_service.repository.InventoryRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -27,8 +28,15 @@ public class InventoryServiceTest {
     @Autowired
     private InventoryService inventoryService;
 
-    @Autowired
-    private TestDataInitializer testDataInitializer;
+    @BeforeEach
+    @Transactional
+    public void setUp() {
+        inventoryRepository.deleteAll();
+
+        Inventory inventory1 = new Inventory("Product A", 10);
+        Inventory inventory2 = new Inventory("Product B", 20);
+        inventoryRepository.saveAll(Arrays.asList(inventory1, inventory2));
+    }
 
     @Test
     @Transactional

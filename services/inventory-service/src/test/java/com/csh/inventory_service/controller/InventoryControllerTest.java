@@ -1,8 +1,8 @@
 package com.csh.inventory_service.controller;
 
-import com.csh.inventory_service.TestDataInitializer;
 import com.csh.inventory_service.entity.Inventory;
 import com.csh.inventory_service.repository.InventoryRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -13,6 +13,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 import static org.hamcrest.Matchers.*;
@@ -31,8 +32,16 @@ public class InventoryControllerTest {
     @Autowired
     private InventoryRepository inventoryRepository;
 
-    @Autowired
-    private TestDataInitializer testDataInitializer;
+    @BeforeEach
+    @Transactional
+    public void setUp() {
+        inventoryRepository.deleteAll();
+
+        Inventory inventory1 = new Inventory("Product A", 10);
+        Inventory inventory2 = new Inventory("Product B", 20);
+        inventoryRepository.saveAll(Arrays.asList(inventory1, inventory2));
+    }
+
 
     @Test
     @Transactional

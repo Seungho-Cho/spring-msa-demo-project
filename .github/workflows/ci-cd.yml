@@ -64,25 +64,25 @@ jobs:
       - name: Push Docker image to Docker Hub
         run: docker push csh628/inventory-service:latest
 
-      - name: Transfer YAML files to EC2
-        uses: appleboy/scp-action@v0.1.4
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USER }}
-          key: ${{ secrets.EC2_SSH_KEY }}
-          source: "services/inventory-service/inventory-deployment.yaml"
-          target: "/home/${{ secrets.EC2_USER }}/deployments/"
-
-      - name: Deploy to Minikube on EC2
-        uses: appleboy/ssh-action@v0.1.6
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USER }}
-          key: ${{ secrets.EC2_SSH_KEY  }}
-          script: |
-            set -e
-            kubectl apply -f /home/${{ secrets.EC2_USER }}/deployments/services/inventory-service/inventory-deployment.yaml
-            kubectl rollout status deployment/inventory-deployment
+#      - name: Transfer YAML files to EC2
+#        uses: appleboy/scp-action@v0.1.4
+#        with:
+#          host: ${{ secrets.EC2_HOST }}
+#          username: ${{ secrets.EC2_USER }}
+#          key: ${{ secrets.EC2_SSH_KEY }}
+#          source: "services/inventory-service/inventory-deployment.yaml"
+#          target: "/home/${{ secrets.EC2_USER }}/deployments/"
+#
+#      - name: Deploy to Minikube on EC2
+#        uses: appleboy/ssh-action@v0.1.6
+#        with:
+#          host: ${{ secrets.EC2_HOST }}
+#          username: ${{ secrets.EC2_USER }}
+#          key: ${{ secrets.EC2_SSH_KEY  }}
+#          script: |
+#            set -e
+#            kubectl apply -f /home/${{ secrets.EC2_USER }}/deployments/services/inventory-service/inventory-deployment.yaml
+#            kubectl rollout status deployment/inventory-deployment
 
   build-and-test-order-service:
     name: Build and Test order Service
