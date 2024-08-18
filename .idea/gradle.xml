@@ -15,6 +15,7 @@
             <option value="$PROJECT_DIR$/services" />
             <option value="$PROJECT_DIR$/services/inventory-service" />
             <option value="$PROJECT_DIR$/services/order-service" />
+            <option value="$PROJECT_DIR$/services/shipping-service" />
             <option value="$PROJECT_DIR$/services/ui" />
             <option value="$PROJECT_DIR$/services/user-service" />
           </set>
