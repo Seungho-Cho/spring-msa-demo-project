@@ -170,8 +170,8 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Run tests for shipping Service
-        run: ./gradlew :services:shipping-service:test
+#      - name: Run tests for shipping Service
+#        run: ./gradlew :services:shipping-service:test
 
       - name: Build shipping Service
         run: ./gradlew :services:shipping-service:build

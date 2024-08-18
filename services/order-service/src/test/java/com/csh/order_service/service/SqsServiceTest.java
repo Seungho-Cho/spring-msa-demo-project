@@ -14,7 +14,6 @@ public class SqsServiceTest {
     @Autowired
     private SqsService sqsService;
 
-
     @Test
     @Disabled
     void testSendMessage() {
