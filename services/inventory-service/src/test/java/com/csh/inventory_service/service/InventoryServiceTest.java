@@ -4,32 +4,27 @@ import com.csh.inventory_service.entity.Inventory;
 import com.csh.inventory_service.repository.InventoryRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-@ExtendWith(MockitoExtension.class)
 @ActiveProfiles("test")
 public class InventoryServiceTest {
 
-    @Mock
+    @Autowired
     private InventoryRepository inventoryRepository;
 
     @Autowired
     private InventoryService inventoryService;
 
     @BeforeEach
-    @Transactional
     public void setUp() {
         inventoryRepository.deleteAll();
 
@@ -39,9 +34,16 @@ public class InventoryServiceTest {
     }
 
     @Test
-    @Transactional
+    void testGetAllInventory() {
+        List<Inventory> inventoryList = inventoryRepository.findAll();
+
+        assertEquals(2, inventoryList.size());
+    }
+
+    @Test
     void testGetInventoryById_Success() {
-        Optional<Inventory> result = inventoryService.getInventoryById(1L);
+        List<Inventory> inventoryList = inventoryRepository.findAll();
+        Optional<Inventory> result = inventoryService.getInventoryById(inventoryList.get(0).getId());
 
         assertTrue(result.isPresent());
         assertEquals("Product A", result.get().getProductName());
@@ -49,7 +51,6 @@ public class InventoryServiceTest {
     }
 
     @Test
-    @Transactional
     void testGetInventoryById_NotFound() {
         Optional<Inventory> result = inventoryService.getInventoryById(-1L);
 
@@ -57,7 +58,6 @@ public class InventoryServiceTest {
     }
 
     @Test
-    @Transactional
     void testSaveInventory() {
         Inventory target = Inventory.builder()
                 .productName("Product Test")
@@ -72,9 +72,9 @@ public class InventoryServiceTest {
     }
 
     @Test
-    @Transactional
     void testDelteInventory() {
-        Optional<Inventory> result = inventoryService.getInventoryById(1L);
+        List<Inventory> inventoryList = inventoryRepository.findAll();
+        Optional<Inventory> result = inventoryService.getInventoryById(inventoryList.get(0).getId());
         assertTrue(result.isPresent());
 
         inventoryService.deleteInventory(1L);

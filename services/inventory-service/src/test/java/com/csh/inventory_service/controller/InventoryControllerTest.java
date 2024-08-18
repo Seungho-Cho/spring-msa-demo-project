@@ -33,7 +33,6 @@ public class InventoryControllerTest {
     private InventoryRepository inventoryRepository;
 
     @BeforeEach
-    @Transactional
     public void setUp() {
         inventoryRepository.deleteAll();
 
@@ -44,7 +43,6 @@ public class InventoryControllerTest {
 
 
     @Test
-    @Transactional
     void testGetAllInventories() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/inventory")
                 .contentType(MediaType.APPLICATION_JSON))
@@ -55,7 +53,6 @@ public class InventoryControllerTest {
     }
 
     @Test
-    @Transactional
     void testGetInventoryById_Success() throws Exception {
         Inventory inventory = inventoryRepository.findAll().get(0);
 
@@ -66,7 +63,6 @@ public class InventoryControllerTest {
     }
 
     @Test
-    @Transactional
     void testGetInventoryById_NotFound() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/inventory/{id}", -1L)
                 .contentType(MediaType.APPLICATION_JSON))
@@ -74,7 +70,6 @@ public class InventoryControllerTest {
     }
 
     @Test
-    @Transactional
     void testCreateInventory() throws Exception {
         String newInventoryJson = "{\"productName\":\"Product C\",\"quantity\":30}";
 
@@ -87,7 +82,6 @@ public class InventoryControllerTest {
     }
 
     @Test
-    @Transactional
     void testUpdateInventory_Success() throws Exception{
         Inventory inventory = inventoryRepository.findAll().get(0);
         String UpdateInventoryJson = "{\"id\":\""+inventory.getId()+"\",\"productName\":\"Product A\",\"quantity\":9}";
@@ -101,7 +95,6 @@ public class InventoryControllerTest {
     }
 
     @Test
-    @Transactional
     void testDeleteInventory() throws Exception {
         Inventory inventory = inventoryRepository.findAll().get(0);
 
