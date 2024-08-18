@@ -41,6 +41,6 @@ out/
 /services/inventory-service/build/
 /services/inventory-service/.gradle/
 /services/order-service/src/main/resources/application-local.properties
-/services/order-service/src/test/resources/application-test.properties
+/services/order-service/src/test/resources/application-test-local.properties
 /services/shipping-service/src/main/resources/application-local.properties
-/services/shipping-service/src/test/resources/application-test.properties
+/services/shipping-service/src/test/resources/application-test-local.properties

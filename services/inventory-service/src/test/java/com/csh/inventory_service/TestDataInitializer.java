@@ -5,9 +5,11 @@ import com.csh.inventory_service.repository.InventoryRepository;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
 @Component
+@ActiveProfiles("test")
 public class TestDataInitializer {
 
     @Autowired
