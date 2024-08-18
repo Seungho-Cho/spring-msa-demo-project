@@ -59,8 +59,8 @@ spring-demo-project/
 - **Java 17**
 - **Spring Boot 3.3.2**
 - **Spring Data JPA**
-- **GraphQL**
-- **AWS SQS** : 주문/출고 서비스간 메시지 큐 구현
+- **GraphQL**: 상품 검색 서비스 구현
+- **AWS SQS**: 주문/출고 서비스간 메시지 큐 구현
 - **H2 Database**: 테스트를 위한 인메모리 데이터베이스
 - **MySQL (AWS RDS)**: 배포 환경에서는 AWS RDS의 MySQL을 사용
 
