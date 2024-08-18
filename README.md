@@ -22,7 +22,7 @@ spring-demo-project/
 │   │   ├── Dockerfile                   # 서비스의 Docker 컨테이너를 위한 Dockerfile
 │   │   ├── inventory-deployment.yaml    # 인벤토리 서비스의 Kubernetes 배포 파일
 │   │   └── ...
-│   ├── userEntity-service/              # 유저 서비스 
+│   ├── user-service/              # 유저 서비스 
 │   │   ├── src/                         # 유저 서비스 소스 코드
 │   │   ├── build.gradle                 # Gradle 빌드 스크립트
 │   │   ├── Dockerfile                   # 서비스의 Docker 컨테이너를 위한 Dockerfile
