@@ -55,6 +55,10 @@ spring-demo-project/
 
 ## 기술 스택
 
+### 개발환경
+- **IntelliJ IDEA**
+- **SonarLint**: 코드 품질 관리
+
 ### 백엔드
 - **Java 17**
 - **Spring Boot 3.3.2**
