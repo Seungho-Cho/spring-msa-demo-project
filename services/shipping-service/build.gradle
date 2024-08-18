@@ -43,3 +43,12 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+
+task bootRunLocal(type: org.springframework.boot.gradle.tasks.run.BootRun) {
+	group = 'Application'
+	description = 'Run the application with the local profile'
+	systemProperty 'spring.profiles.active', 'local'
+	mainClass.set("com.csh.shipping_service.ShippingServiceApplication")
+	classpath = sourceSets.main.runtimeClasspath
+}
