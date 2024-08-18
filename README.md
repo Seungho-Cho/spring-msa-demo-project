@@ -6,7 +6,8 @@
 
 이 프로젝트는 Spring Boot로 구축된 마이크로서비스를 구현하고자 하였으며,  
 GitHub Actions을 통한 CI/CD 파이프라인, Docker 등 기존 기술 스택을 정리하고,
-Minikube를 활용한 Kubernetes 클러스터 배포와 마이크로서비스 등 신규 기술 습득을 목표로 했습니다.  
+
+Minikube를 활용한 Kubernetes 클러스터 배포와 마이크로서비스, GraphQL 등 신규 기술 습득을 목표로 했습니다.  
 또한 Thymeleaf 구현한 기본적인 UI 서비스도 포함되어 있습니다.
 
 ## 프로젝트 구조
@@ -27,20 +28,30 @@ spring-demo-project/
 │   │   ├── Dockerfile                   # 서비스의 Docker 컨테이너를 위한 Dockerfile
 │   │   ├── inventory-deployment.yaml    # 유저 서비스의 Kubernetes 배포 파일
 │   │   └── ...
-│   ├── order-service/                   # 주문 서비스
+│   ├── order-service/                   # 주문 서비스 
 │   │   ├── src/                         # 주문 서비스 소스 코드
 │   │   ├── build.gradle                 # Gradle 빌드 스크립트
 │   │   ├── Dockerfile                   # 서비스의 Docker 컨테이너를 위한 Dockerfile
 │   │   ├── inventory-deployment.yaml    # 주문 서비스의 Kubernetes 배포 파일
+│   │   └── ...
+│   ├── shipping-service/                # 출고 서비스
+│   │   ├── src/                         # 출고 서비스 소스 코드
+│   │   ├── build.gradle                 # Gradle 빌드 스크립트
+│   │   ├── Dockerfile                   # 서비스의 Docker 컨테이너를 위한 Dockerfile
+│   │   ├── inventory-deployment.yaml    # 출고 서비스의 Kubernetes 배포 파일
 │   │   └── ...
 │   └── ui/                              # UI 서비스
 │       ├── src/                         # UI 소스 코드
 │       ├── build.gradle                 # Gradle 빌드 스크립트
 │       ├── Dockerfile                   # UI의 Docker 컨테이너를 위한 Dockerfile
 │       ├── ui-deployment.yaml           # UI 서비스의 Kubernetes 배포 파일
+│       ├── ui-service.yaml              # UI 서비스의 Kubernetes 서비스 구성 파일
 │       └── ...
 └── settings.gradle                      # Gradle 설정 파일
 ```
+
+<img width="800" alt="화면 캡처 2024-08-18 031235" src="https://github.com/user-attachments/assets/2ee5a235-4424-4558-9e0e-0c529ce8cd7e">
+
 
 ## 기술 스택
 
@@ -48,7 +59,8 @@ spring-demo-project/
 - **Java 17**
 - **Spring Boot 3.3.2**
 - **Spring Data JPA**
-- **GraphQL**
+- **GraphQL**: 상품 검색 서비스 구현
+- **AWS SQS**: 주문/출고 서비스간 메시지 큐 구현
 - **H2 Database**: 테스트를 위한 인메모리 데이터베이스
 - **MySQL (AWS RDS)**: 배포 환경에서는 AWS RDS의 MySQL을 사용
 
@@ -74,7 +86,8 @@ spring-demo-project/
 
 CI/CD 파이프라인은 GitHub Actions를 사용하여 구현되었습니다.
 
-### Git Actions 워크플로우
+### Git Actions 워크플로우 
+https://github.com/Seungho-Cho/spring-msa-demo-project/blob/main/.github/workflows/ci-cd.yml
 1. **빌드 및 테스트**: 각 마이크로서비스는 Gradle을 사용해 빌드 및 테스트됩니다.
 2. **Docker 이미지 생성**: 빌드 및 테스트가 성공하면 Docker 이미지를 생성합니다.
 3. **Docker Hub 푸시**: 생성된 Docker 이미지는 Docker Hub에 푸시됩니다.
@@ -84,6 +97,7 @@ CI/CD 파이프라인은 GitHub Actions를 사용하여 구현되었습니다.
 
 
 ## 향후 개선 사항
+- Spring Cloud config를 사용한 config 중앙화
 - OAuth2 또는 JWT와 API Gateway 사용한 보안 강화.
 - Amazon EKS 또는 Google Kubernetes Engine(GKE)을 사용한 프로덕션 환경 구축.
 - Prometheus, Grafana와 같은 모니터링 구현.
