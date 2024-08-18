@@ -55,7 +55,7 @@ public class OrderServiceTest {
 
         assertNotNull(resultOrder);
         assertEquals(resultOrder.getOrderId(), createdOrderId);
-        assertEquals(resultOrder.getInventoryId(), 1L);
-        assertEquals(resultOrder.getOrderStatus(), OrderStatus.SHIPPED);
+        assertEquals(1L, resultOrder.getInventoryId());
+        assertEquals(OrderStatus.SHIPPED, resultOrder.getOrderStatus());
     }
 }
