@@ -1,6 +1,5 @@
 package com.csh.inventory_service.entity;
 
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.beans.BeanUtils;
@@ -18,11 +17,9 @@ public class Inventory {
     private Long id;
 
     @NonNull
-    @Column(nullable = false)
     private String productName;
 
     @NonNull
-    @Column(nullable = false)
     private Integer quantity;
 
     private Double price;
