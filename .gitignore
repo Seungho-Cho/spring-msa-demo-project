@@ -40,3 +40,4 @@ out/
 /services/ui/build/
 /services/inventory-service/build/
 /services/inventory-service/.gradle/
+/services/order-service/src/main/resources/application-local.properties
