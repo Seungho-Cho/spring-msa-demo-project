@@ -5,27 +5,18 @@
       <profile name="Gradle Imported" enabled="true">
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
-          <entry name="$PROJECT_DIR$/../../../Gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.24/13a394eed5c4f9efb2a6d956e2086f1d81e857d9/lombok-1.18.24.jar" />
+          <entry name="$PROJECT_DIR$/../../../Gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.34/ec547ef414ab1d2c040118fb9c1c265ada63af14/lombok-1.18.34.jar" />
         </processorPath>
         <module name="spring-demo-project.services.inventory-service.main" />
         <module name="spring-demo-project.services.user-service.main" />
-      </profile>
-      <profile name="Gradle Imported" enabled="true">
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="false">
-          <entry name="$PROJECT_DIR$/../../../Gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.34/ec547ef414ab1d2c040118fb9c1c265ada63af14/lombok-1.18.34.jar" />
-        </processorPath>
-        <module name="spring-demo-project.services.shipping-service.main" />
         <module name="spring-demo-project.services.order-service.main" />
+        <module name="spring-demo-project.services.shipping-service.main" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="17">
       <module name="com.csh.spring-demo-project" target="17" />
       <module name="com.csh.spring-demo-project.main" target="17" />
       <module name="com.csh.spring-demo-project.test" target="17" />
-      <module name="inventory-service" target="17" />
-      <module name="inventory-service.main" target="17" />
-      <module name="inventory-service.test" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>
