@@ -10,8 +10,11 @@ import software.amazon.awssdk.services.sqs.model.SendMessageRequest;
 @Service
 public class SqsService {
 
-    @Autowired
-    private SqsClient sqsClient;
+    private final SqsClient sqsClient;
+
+    public SqsService (SqsClient sqsClient){
+        this.sqsClient = sqsClient;
+    }
 
     @Value("${aws.queueUrl}")
     private String queueUrl;
