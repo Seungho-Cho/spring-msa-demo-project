@@ -6,12 +6,18 @@ on:
       - main
     paths:
       - 'services/inventory-service/**'
+      - 'services/user-service/**'
+      - 'services/order-service/**'
+      - 'services/shipping-service/**'
       - 'services/ui/**'
   pull_request:
     branches:
       - main
     paths:
       - 'services/inventory-service/**'
+      - 'services/user-service/**'
+      - 'services/order-service/**'
+      - 'services/shipping-service/**'
       - 'services/ui/**'
   workflow_dispatch:
 
@@ -21,7 +27,11 @@ jobs:
     runs-on: ubuntu-latest
     if: |
       github.event_name == 'workflow_dispatch' ||
-      contains(github.event.head_commit.message, 'services/inventory-service')
+      github.event_name == 'push' && (
+              contains(github.event.commits[*].added, 'services/inventory-service') ||
+              contains(github.event.commits[*].modified, 'services/inventory-service') ||
+              contains(github.event.commits[*].removed, 'services/inventory-service')
+            )
 
     steps:
       - name: Checkout source code
@@ -54,6 +64,15 @@ jobs:
       - name: Push Docker image to Docker Hub
         run: docker push csh628/inventory-service:latest
 
+      - name: Transfer YAML files to EC2
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          source: "services/inventory-service/inventory-deployment.yaml"
+          target: "/home/${{ secrets.EC2_USER }}/deployments/"
+
       - name: Deploy to Minikube on EC2
         uses: appleboy/ssh-action@v0.1.6
         with:
@@ -65,12 +84,204 @@ jobs:
             kubectl apply -f /home/${{ secrets.EC2_USER }}/deployments/services/inventory-service/inventory-deployment.yaml
             kubectl rollout status deployment/inventory-deployment
 
+  build-and-test-order-service:
+    name: Build and Test order Service
+    runs-on: ubuntu-latest
+    if: |
+      github.event_name == 'workflow_dispatch' ||
+      github.event_name == 'push' && (
+              contains(github.event.commits[*].added, 'services/order-service') ||
+              contains(github.event.commits[*].modified, 'services/order-service') ||
+              contains(github.event.commits[*].removed, 'services/order-service')
+            )
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Run tests for order Service
+        run: ./gradlew :services:order-service:test
+
+      - name: Build order Service
+        run: ./gradlew :services:order-service:build
+
+      - name: Build Docker image for order Service
+        run: docker build --platform linux/arm64 -t csh628/order-service:latest -f services/order-service/Dockerfile .
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - name: Push Docker image to Docker Hub
+        run: docker push csh628/order-service:latest
+
+      - name: Transfer YAML files to EC2
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          source: "services/order-service/order-deployment.yaml"
+          target: "/home/${{ secrets.EC2_USER }}/deployments/"
+
+      - name: Deploy to Minikube on EC2
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY  }}
+          script: |
+            set -e
+            kubectl apply -f /home/${{ secrets.EC2_USER }}/deployments/services/order-service/order-deployment.yaml
+            kubectl rollout status deployment/order-deployment
+
+  build-and-test-shipping-service:
+    name: Build and Test shipping Service
+    runs-on: ubuntu-latest
+    if: |
+      github.event_name == 'workflow_dispatch' ||
+      github.event_name == 'push' && (
+              contains(github.event.commits[*].added, 'services/shipping-service') ||
+              contains(github.event.commits[*].modified, 'services/shipping-service') ||
+              contains(github.event.commits[*].removed, 'services/shipping-service')
+            )
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Run tests for shipping Service
+        run: ./gradlew :services:shipping-service:test
+
+      - name: Build shipping Service
+        run: ./gradlew :services:shipping-service:build
+
+      - name: Build Docker image for shipping Service
+        run: docker build --platform linux/arm64 -t csh628/shipping-service:latest -f services/shipping-service/Dockerfile .
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - name: Push Docker image to Docker Hub
+        run: docker push csh628/shipping-service:latest
+
+      - name: Transfer YAML files to EC2
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          source: "services/shipping-service/shipping-deployment.yaml"
+          target: "/home/${{ secrets.EC2_USER }}/deployments/"
+
+      - name: Deploy to Minikube on EC2
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY  }}
+          script: |
+            set -e
+            kubectl apply -f /home/${{ secrets.EC2_USER }}/deployments/services/shipping-service/shipping-deployment.yaml
+            kubectl rollout status deployment/shipping-deployment
+
+
+  build-and-test-user-service:
+    name: Build and Test user Service
+    runs-on: ubuntu-latest
+    if: |
+      github.event_name == 'workflow_dispatch' ||
+      github.event_name == 'push' && (
+              contains(github.event.commits[*].added, 'services/user-service') ||
+              contains(github.event.commits[*].modified, 'services/user-service') ||
+              contains(github.event.commits[*].removed, 'services/user-service')
+            )
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Run tests for user Service
+        run: ./gradlew :services:user-service:test
+
+      - name: Build user Service
+        run: ./gradlew :services:user-service:build
+
+      - name: Build Docker image for user Service
+        run: docker build --platform linux/arm64 -t csh628/user-service:latest -f services/user-service/Dockerfile .
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - name: Push Docker image to Docker Hub
+        run: docker push csh628/user-service:latest
+
+      - name: Transfer YAML files to EC2
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          source: "services/user-service/user-deployment.yaml"
+          target: "/home/${{ secrets.EC2_USER }}/deployments/"
+
+      - name: Deploy to Minikube on EC2
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY  }}
+          script: |
+            set -e
+            kubectl apply -f /home/${{ secrets.EC2_USER }}/deployments/services/user-service/user-deployment.yaml
+            kubectl rollout status deployment/user-deployment
+
+
   build-and-test-ui-service:
     name: Build and Test UI Service
     runs-on: ubuntu-latest
     if: |
       github.event_name == 'workflow_dispatch' ||
-      contains(github.event.head_commit.message, 'services/ui')
+      github.event_name == 'push' && (
+                    contains(github.event.commits[*].added, 'services/ui') ||
+                    contains(github.event.commits[*].modified, 'services/ui') ||
+                    contains(github.event.commits[*].removed, 'services/ui')
+                  )
 
     steps:
       - name: Checkout source code
@@ -99,6 +310,15 @@ jobs:
 
       - name: Push Docker image to Docker Hub
         run: docker push csh628/ui-service:latest
+
+      - name: Transfer YAML files to EC2
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          source: "services/ui/ui-deployment.yaml services/ui/ui-service.yaml"
+          target: "/home/${{ secrets.EC2_USER }}/deployments/"
 
       - name: Deploy to Minikube on EC2
         uses: appleboy/ssh-action@v0.1.6
