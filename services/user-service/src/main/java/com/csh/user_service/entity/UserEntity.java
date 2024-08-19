@@ -16,18 +16,15 @@ public class UserEntity /*implements UserInterface*/ {
     @Id
     private String userId;
 
-    @NonNull
+    @Column(nullable = false)
     private String password;
 
-    @NonNull
     @Column(nullable = false)
     private String userName;
 
-    @NonNull
     @Column(unique = true, nullable = false)
     private String email;
 
-    @NonNull
     private String role;
 
     public void copyForm(UserEntity userEntity) {

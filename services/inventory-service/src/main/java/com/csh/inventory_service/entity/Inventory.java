@@ -16,10 +16,10 @@ public class Inventory {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NonNull
+    @Column(nullable = false)
     private String productName;
 
-    @NonNull
+    @Column(nullable = false)
     private Integer quantity;
 
     private Double price;

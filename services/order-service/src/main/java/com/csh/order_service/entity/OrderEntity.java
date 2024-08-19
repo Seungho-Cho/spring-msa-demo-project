@@ -17,9 +17,9 @@ public class OrderEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long orderId;
 
-    @NonNull
+    @Column(nullable = false)
     private String userId;
-    @NonNull
+    @Column(nullable = false)
     private Long inventoryId;
 
     private String address;
