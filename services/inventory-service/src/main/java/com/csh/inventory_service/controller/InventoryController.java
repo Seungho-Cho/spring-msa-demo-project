@@ -25,7 +25,7 @@ public class InventoryController {
     public ResponseEntity<Inventory> getInventoryById(@PathVariable Long id) {
         return inventoryService.getInventoryById(id)
                 .map(inventory -> ResponseEntity.ok().body(inventory))
-                .orElse(ResponseEntity.notFound().build());
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
@@ -40,7 +40,7 @@ public class InventoryController {
                     inventory.copyFrom(inventoryDetail);
                     return ResponseEntity.ok().body(inventoryService.saveInventory(inventory));
                 })
-                .orElse(ResponseEntity.notFound().build());
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
@@ -50,6 +50,6 @@ public class InventoryController {
                     inventoryService.deleteInventory(id);
                     return ResponseEntity.ok().build();
                 })
-                .orElse(ResponseEntity.notFound().build());
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 }

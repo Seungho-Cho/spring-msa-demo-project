@@ -28,7 +28,7 @@ public class UserController {
     public ResponseEntity<UserEntity> getUserById(@PathVariable String id) {
         return userService.getUserById(id)
                 .map(serviceUser -> ResponseEntity.ok().body(serviceUser))
-                .orElse(ResponseEntity.notFound().build());
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
