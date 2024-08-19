@@ -7,7 +7,6 @@ import org.springframework.beans.BeanUtils;
 
 @Entity
 @Data
-@NoArgsConstructor
 @RequiredArgsConstructor
 @AllArgsConstructor
 @Table(name = "service_user")
